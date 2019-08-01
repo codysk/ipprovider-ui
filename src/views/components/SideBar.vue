@@ -1,6 +1,12 @@
 <template>
     <div class="bg-side sidebar">
         <div class="status">
+            <div class="status-grid">
+                <div class="status-card">1</div>
+                <div class="status-card">1</div>
+                <div class="status-card">1</div>
+                <div class="status-card">1</div>
+            </div>
             <b-table class="table-dark bottom-table" thead-class="no-table-header" small :items="items" />
         </div>
     </div>
@@ -40,6 +46,17 @@
     }
     .bottom-table {
         margin: 0;
+    }
+    .status-grid {
+        display: grid;
+        grid-gap: 0.5em;
+        grid-template-columns: 1fr 1fr;
+        padding: .5em;
+    }
+    .status-card {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
     }
 </style>
 <style>
