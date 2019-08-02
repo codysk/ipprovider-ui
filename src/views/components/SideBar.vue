@@ -1,34 +1,22 @@
 <template>
     <div class="bg-side sidebar">
-        <div class="status">
-            <div class="status-grid">
-                <div class="status-card">1</div>
-                <div class="status-card">1</div>
-                <div class="status-card">1</div>
-                <div class="status-card">1</div>
-            </div>
-            <b-table class="table-dark bottom-table" thead-class="no-table-header" small :items="items" />
-        </div>
+        <manager-side />
+        <statue-side />
     </div>
 </template>
 
 <script>
+    import StatueSide from "./StatueSide";
+    import ManagerSide from "./ManageSide";
     export default {
         name: "SideBar",
-        data() {
-            return {
-                items : [
-                    {k: "Mem Usage", v: "12.8Mi"},
-                    {k: "Containers", v: "8"},
-                ]
-            }
-        }
+        components: {ManagerSide, StatueSide},
     }
 </script>
 
 <style scoped>
     .bg-side {
-        background-color: grey;
+        background-color: #222d32;
     }
     .sidebar {
         display: flex;
@@ -38,29 +26,32 @@
         margin-left: -15px;
         margin-right: -15px;
     }
-    .status-val {
-        float: right;
-    }
-    .status {
-        margin-top: auto;
-    }
-    .bottom-table {
-        margin: 0;
-    }
-    .status-grid {
-        display: grid;
-        grid-gap: 0.5em;
-        grid-template-columns: 1fr 1fr;
-        padding: .5em;
-    }
-    .status-card {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-    }
 </style>
 <style>
     .no-table-header {
         display: none;
+    }
+    .side-title {
+        padding: .75em 1em;
+        background-color: black;
+        color: white;
+    }
+    .side-link {
+        align-items: center;
+        border-left: 3px solid transparent;
+        box-sizing: border-box;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        padding: 0.95em 1.25em;
+        text-decoration: none;
+        transition: background .2s;
+        white-space: nowrap;
+        width: 100%;
+        border-top: 1px grey;
+    }
+
+    .navigation-link.navigation-link--active {
+        border-color: deepskyblue;
     }
 </style>
