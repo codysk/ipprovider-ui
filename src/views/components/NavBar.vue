@@ -27,6 +27,6 @@
         background-color: #541393;
     }
     .navbar {
-        height: 4rem;
+        z-index: 999;
     }
 </style>

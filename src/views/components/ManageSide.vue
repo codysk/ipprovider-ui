@@ -15,5 +15,12 @@
 </script>
 
 <style scoped>
-
+    a:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #1c282d;
+    }
+    .router-link-exact-active, .router-link-exact-active:hover {
+        background-color: #192429;
+    }
 </style>

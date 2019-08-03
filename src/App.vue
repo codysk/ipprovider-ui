@@ -1,12 +1,12 @@
 <template>
     <div id="app-container">
         <NavBar/>
-        <b-container fluid>
+        <b-container class="container-fluid" fluid>
             <b-row>
-                <b-col cols="12" md="3" xl="2">
+                <b-col cols="1" md="3" xl="2">
                     <SideBar/>
                 </b-col>
-                <b-col cols="12" md="9" xl="8">
+                <b-col cols="11" md="9" xl="10">
                     <router-view/>
                 </b-col>
             </b-row>
@@ -22,3 +22,13 @@
         components: {SideBar, NavBar}
     }
 </script>
+
+<style>
+    body {
+        background-color: #eeeeee;
+    }
+    .container-fluid {
+        position: absolute;
+        top: 3.5rem;
+    }
+</style>

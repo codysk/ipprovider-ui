@@ -22,7 +22,7 @@
         display: flex;
         flex-direction: column;
         position: sticky;
-        height: calc(100vh - 4rem);
+        height: calc(100vh - 3.5rem);
         margin-left: -15px;
         margin-right: -15px;
     }
@@ -38,13 +38,11 @@
     }
     .side-link {
         align-items: center;
-        border-left: 3px solid transparent;
         box-sizing: border-box;
         color: white;
         cursor: pointer;
         display: flex;
         padding: 0.95em 1.25em;
-        text-decoration: none;
         transition: background .2s;
         white-space: nowrap;
         width: 100%;
