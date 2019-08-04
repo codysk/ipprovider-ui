@@ -2,10 +2,10 @@
     <div class="status">
         <div class="side-title">Status</div>
         <div class="status-grid table-dark">
-            <div class="status-card status-running">1<div class="status-label">Running</div></div>
-            <div class="status-card status-assigned">2<div class="status-label">Assigned</div></div>
-            <div class="status-card status-containers">3<div class="status-label">Containers</div></div>
-            <div class="status-card status-exited">4<div class="status-label">Exited</div></div>
+            <div class="status-card status-running">{{status.running}}<div class="status-label">Running</div></div>
+            <div class="status-card status-assigned">{{status.assigned}}<div class="status-label">Assigned</div></div>
+            <div class="status-card status-containers">{{status.containers}}<div class="status-label">Containers</div></div>
+            <div class="status-card status-exited">{{status.exited}}<div class="status-label">Exited</div></div>
         </div>
         <div class="table-dark bottom-table" >
             <div class="status-line"><span class="status-label">Mem Usage</span><span class="status-value">12.8Mi</span></div>
@@ -15,8 +15,35 @@
 </template>
 
 <script>
+    import containerService from '../../services/Container'
+    import Vue from 'vue'
     export default {
         name: "StatueSide",
+        data() {
+            return {
+                status
+            }
+        },
+
+        mounted() {
+            this.status = {
+                running: 0,
+                assigned: 0,
+                containers: 0,
+                exited:0 ,
+            };
+            this.$root.$on('containers-update', this.updateStatus)
+        },
+
+        methods: {
+            updateStatus() {
+               Vue.set(this, 'status', containerService.getStatus())
+            }
+        },
+
+        beforeDestroy() {
+            this.$root.$off('containers-update', this.updateStatus)
+        }
     }
 </script>
 

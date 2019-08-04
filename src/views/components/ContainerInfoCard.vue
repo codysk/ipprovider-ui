@@ -4,7 +4,13 @@
             <div class="container-id text-clip"><span>Container id: </span><b-badge>{{ this.container.Id }}</b-badge></div>
             <div class="container-image text-clip"><span>Image: </span><b-badge>{{ this.container.Image }}</b-badge></div>
             <div class="container-state text-clip"><span>State: </span><b-badge>{{ this.container.State }}</b-badge></div>
-            <div class="container-state text-clip"><span>AssignedIp: </span><b-badge v-if="this.container.ProviderInfo != null">{{ utils.ipi2a(this.container.ProviderInfo['ExternalIP']) }}</b-badge></div>
+            <div class="container-state text-clip">
+                <span>AssignedIp: </span>
+                <b-badge v-if="this.container.ProviderInfo != null">
+                    {{ utils.ipi2a(this.container.ProviderInfo['ExternalIP']) }}
+                </b-badge>
+                <font-awesome-icon class="edit-icon" icon="pencil-alt" />
+            </div>
         </b-card-text>
     </b-card>
 </template>
@@ -27,5 +33,8 @@
         white-space:nowrap;
         overflow:hidden;
         text-overflow:ellipsis;
+    }
+    .edit-icon {
+        margin: 0 .3em;
     }
 </style>

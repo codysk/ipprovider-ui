@@ -6,5 +6,5 @@ export default {
         ip[2] = (intIp >> 8) & 0xff;
         ip[3] = intIp & 0xff;
         return ip.join('.')
-    }
+    },
 }
