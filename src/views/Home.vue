@@ -1,9 +1,9 @@
 <template>
     <div class="home">
-        <b-card-group columns v-for="(group, index) in containerGroups" v-bind:key="index">
+        <b-card-group columns v-for="group in containerGroups" v-bind:key="Object.keys(group).join(',')">
             <container-info-card v-for="container in group" v-bind:key="container.Id" :container="container" />
         </b-card-group>
-        <b-modal></b-modal>
+        <assigning-box />
     </div>
 </template>
 
@@ -11,9 +11,10 @@
     import containerService from '../services/Container'
     import Vue from 'vue'
     import ContainerInfoCard from "./components/ContainerInfoCard"
+    import AssigningBox from "./components/AssigningBox";
     export default {
         name: 'home',
-        components: {ContainerInfoCard},
+        components: {AssigningBox, ContainerInfoCard},
         data() {
             return {
                 containerList:[],
@@ -25,8 +26,8 @@
             }
         },
         mounted() {
-            this.updateContainer();
-            this.$root.$on('containers-update', this.updateContainer)
+            this.$root.$on('containers-update', this.updateContainer);
+            this.$root.$once('service-init-ready', this.ready);
         },
         methods: {
             updateContainer() {
@@ -45,10 +46,30 @@
 
                 Vue.set(this, 'containerGroups', containerGroups);
                 Vue.set(this, 'containerList', containers);
+            },
+            routerHandler(to, from){
+                if (to.params['pathMatch'] === 'edit/') {
+                    let containerId = to.params['container_id'];
+                    let container = this.containerList[containerId];
+                    this.$root.$emit('assign-modal-show', container)
+                }
+                if (to.params['pathMatch'] == null) {
+                    this.$root.$emit('assign-modal-hide', 'router')
+                }
+            },
+            ready() {
+                this.routerHandler(this.$route, null);
+                this.updateContainer();
             }
         },
         beforeDestroy() {
             this.$root.$off('containers-update', this.updateContainer)
+        },
+        watch: {
+            $route(to, from) {
+                console.log(to, from);
+                this.routerHandler(to, from);
+            }
         }
     }
 </script>

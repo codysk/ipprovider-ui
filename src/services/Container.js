@@ -29,7 +29,7 @@ export default {
                     containers: respContainers.data.length,
                     exited: 0 ,
                 };
-
+                let containers = {};
                 for (let index in respContainers.data) {
                     if (!respContainers.data.hasOwnProperty(index)) continue;
                     let container = respContainers.data[index];
@@ -37,18 +37,20 @@ export default {
                     if (respConnected.data.hasOwnProperty(container['Id'])){
                         container['ProviderInfo'] = respConnected.data[container['Id']]
                     }
-                    $this.containers[container['Id']] = container;
+                    containers[container['Id']] = container;
 
                     if (container['State'] === 'exited') status.exited += 1;
                     if (container['State'] === 'running') status.running += 1;
                     if (container['ProviderInfo'] !== null) status.assigned += 1;
                 }
-                $this.status = status
+                $this.status = status;
+                $this.containers = containers;
             })).then(() => {
                 eventBus.$emit("containers-update")
             })
     },
     startService: function (eventBus) {
-        setInterval(this.requestContainers, 2000, this, eventBus)
+        this.requestContainers(this, eventBus);
+        return setInterval(this.requestContainers, 2000, this, eventBus)
     }
 }

@@ -13,7 +13,7 @@ export default new Router({
       component: About
     },
     {
-      path: '/(edit/)?:id?',
+      path: '/(edit/)?:container_id?',
       name: 'home',
       component: Home
     }

@@ -9,7 +9,6 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 import ContainerService from "./services/Container"
-import {eventBus} from './utils'
 
 Vue.use(BootstrapVue);
 
@@ -23,4 +22,7 @@ export const context = new Vue({
 });
 
 ContainerService.startService(context);
+context.$once("containers-update", function () {
+    context.$emit('service-init-ready');
+});
 
